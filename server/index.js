@@ -4,8 +4,16 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const router = require('./router');
+const mongoose = require('mongoose');
 
 const app = express();
+
+// DB SETUP
+
+// Creates new database in mongodb called auth.
+mongoose.connect('mongodb://localhost:auth/auth');
+// END DB SETUP
+
 
 // APP SETUP
 
@@ -31,5 +39,8 @@ const port = process.env.PORT || 3090;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on:', port);
+
+// We also added a script to package.json for 'dev' to run index.js
+// So whe we run 'npm run dev' it starts our server up on this port.
 
 // END SERVER SETUP
