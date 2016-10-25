@@ -1,4 +1,15 @@
+const jwt = require('jwt-simple');
 const User  = require('../models/user');
+const config = require('../config');
+
+function tokenForUser(user) {
+  const timestamp = new Date().getTime();
+
+  // Info to encode and the secret to do it with.
+  // By convention, jwt objects have a subject ("sub").
+  // Also by convetion, jwt objects have an issued at time ("iat")
+  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+}
 
 exports.signup = function(req, res, next) {
   const email = req.body.email;
@@ -29,7 +40,7 @@ exports.signup = function(req, res, next) {
       if (err) { return next(err); }
 
       // Respond to request indicating the user was created.
-      res.json({ success: "true" });
+      res.json({ token: tokenForUser(user) });
     });
   });
 };

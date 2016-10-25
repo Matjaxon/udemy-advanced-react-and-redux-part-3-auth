@@ -1,4 +1,5 @@
-// Local definition of what a user is for Mongoose and MongoDB
+// Local definition of what a user is for Mongoose and MongoDB.  To run
+// MongoDB database run "mongod" in the command line.
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
